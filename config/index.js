@@ -28,7 +28,7 @@ module.exports = {
     discord: {
         username: process.env.RPP_DISCORD_USERNAME || 'rustplusplus',
         clientId: process.env.RPP_DISCORD_CLIENT_ID || '1411290766877397084',
-        token: process.env.RPP_DISCORD_TOKEN || 'MTQxMTI5MDc2Njg3NzM5NzA4NA.GlpSfh.7l5bzrkFTDfM-065wugPncUwPCpbNNaCrRAL9k',
+        token: process.env.RPP_DISCORD_TOKEN || '',
         needAdminPrivileges: process.env.RPP_NEED_ADMIN_PRIVILEGES || true, /* If true, only admins can delete (server, switch..), manage credentials and reset a channel */
     }
 };
