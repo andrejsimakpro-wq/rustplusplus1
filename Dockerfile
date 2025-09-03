@@ -1,19 +1,17 @@
-# Build stage: use Rust official image
-FROM rust:latest AS builder
+FROM node:18
 
-WORKDIR /usr/src/app
+RUN apt-get update && apt-get install -y graphicsmagick && apt-get clean
 
-# Copy source code into the container
-COPY . .
+WORKDIR /app
 
-# Build the release version
-RUN cargo build --release
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+RUN npm install
+COPY . /app
 
-# Runtime stage: use a minimal base image
-FROM debian:buster-slim
+VOLUME [ "/app/credentials" ]
+VOLUME [ "/app/instances" ]
+VOLUME [ "/app/logs" ]
+VOLUME [ "/app/maps" ]
 
-# Copy the built binary from the builder stage
-COPY --from=builder /usr/src/app/target/release/rustplusplus /usr/local/bin/rustplusplus
-
-# Run the binary when container starts
-ENTRYPOINT ["rustplusplus"]
+CMD ["npm", "start"]
